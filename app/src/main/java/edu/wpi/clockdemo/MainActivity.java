@@ -2,6 +2,7 @@ package edu.wpi.clockdemo;
 
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.provider.AlarmClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.AlarmManager;
@@ -15,8 +16,6 @@ import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    AlarmManager alarmManager;
 
     @Override
     public void onStart() {
@@ -34,30 +33,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        alarmSet = false;
     }
 
-    boolean alarmSet;
     PendingIntent pendingIntent;
 
     public void onMainClick(View v) {
         TimePicker alarmTP = findViewById(R.id.timePicker);
-        TextView alarmTextView = findViewById(R.id.alarmText);
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent createAlarmIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
+        createAlarmIntent.putExtra(AlarmClock.EXTRA_HOUR, alarmTP.getHour());
+        createAlarmIntent.putExtra(AlarmClock.EXTRA_MINUTES, alarmTP.getMinute());
 
-        if (alarmSet) {
-            alarmManager.cancel(pendingIntent);
-        }
-        else{
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, alarmTP.getHour());
-            calendar.set(Calendar.MINUTE, alarmTP.getMinute());
-            Intent myIntent = new Intent(MainActivity.this, AlarmReceiver.class);
-            pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
-            alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
-            alarmTextView.setText("Alarm set for " + alarmTP.getHour() + ":" + alarmTP.getMinute());
-        }
+        getApplicationContext().startActivity(createAlarmIntent);
     }
+
 
     public void setAlarmText(String text){
         TextView alarmTextView = findViewById(R.id.alarmText);
