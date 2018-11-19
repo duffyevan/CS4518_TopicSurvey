@@ -2,4 +2,10 @@
     <string name="app_name">ClockDemo</string>
 
     <string name="setAlarm">Set Alarm</string>
+    <string name="setAlarmHour">One Hour From Now</string>
+    <string name="setAlarmHalfHour">Half Hour From Now</string>
+    <string name="setAlarmTwoHour">Two Hours From Now</string>
+    <string name="setAlarmEightHour">Eight Hours From Now</string>
+    <string name="swapToAlarm">Skip UI Change</string>
+
 </resources>

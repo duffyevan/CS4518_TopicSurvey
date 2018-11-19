@@ -25,19 +25,71 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:onClick="onMainClick"
+        android:onClick="onTPClick"
         android:text="@string/setAlarm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timePicker" />
 
-    <TextView
-        android:id="@+id/alarmText"
+    <Button
+        android:id="@+id/halfHourButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:onClick="onHalfHourClick"
+        android:text="@string/setAlarmHalfHour"
+        app:layout_constraintEnd_toStartOf="@+id/oneHourButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customButton" />
+
+    <Button
+        android:id="@+id/oneHourButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="onHourClick"
+        android:text="@string/setAlarmHour"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/halfHourButton"
+        app:layout_constraintTop_toBottomOf="@+id/customButton" />
+
+    <Button
+        android:id="@+id/twoHourButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="onTwoHourClick"
+        android:text="@string/setAlarmTwoHour"
+        app:layout_constraintEnd_toStartOf="@+id/eightHourButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/halfHourButton" />
+
+    <Button
+        android:id="@+id/eightHourButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="onEightHourClick"
+        android:text="@string/setAlarmEightHour"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/twoHourButton"
+        app:layout_constraintTop_toBottomOf="@+id/oneHourButton" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:checked="true"
+        android:text="@string/swapToAlarm"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
