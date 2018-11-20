@@ -1,5 +1,7 @@
-# Clock Tutorial
-In this tutorial, you will learn how to make a simple app to set an alarm for a given time, and cancel it.
+# Alarm Clock Tutorial
+_By Evan Duffy and Ben Newmark_
+
+In this tutorial, you will learn how to make a simple app to set alarms for one of a few preset times as well as a custom time that can be set within the app.
 
 ---
 
@@ -28,12 +30,12 @@ We will discuss what these buttons will do in future sections.
 
 Setting alarms from the Android API is actually quite easy. All that is needed is to run an intents with a few parameters. 
 
-First we need to get permission to set alarms from the Android API. Add the following line to your android_manifest.xml at the same level as (not under) the `application` tag:
+First we need to get permission to set alarms from the Android API. Add the following line to your AndroidManifest.xml at the same level as (not under) the `application` tag:
 ```xml
 <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 ```
 
-The intent needed is called `AlarmClock.ACTION_SET_ALARM`. Running this intent will bring up a system dialogue where the user can set an alarm, but we would like our app to set the alarm itself. 
+The intent needed is called `AlarmClock.ACTION_SET_ALARM`. Running this intent without parameters will bring up a system dialogue where the user can set an alarm, but we would like our app to set the alarm itself. 
 
 To specify the time to set the alarm, we need to add extras to the intent as parameters. 
 Use the following function when setting the time:
@@ -52,17 +54,17 @@ Use the following function when setting the time:
 
         Switch toggle = findViewById(R.id.switch1);
 
-        createAlarmIntent.putExtra(AlarmClock.EXTRA_SKIP_UI, toggle.isChecked();
+        createAlarmIntent.putExtra(AlarmClock.EXTRA_SKIP_UI, toggle.isChecked());
 
         getApplicationContext().startActivity(createAlarmIntent);
     }
 ```
 This will set the alarm based on the parameters and set the message for the alarm to `Demo Alarm [n]` where [n] is the number of the alarm (this should be set by you previously).
-Also, note the line: `createAlarmIntent.putExtra(AlarmClock.EXTRA_SKIP_UI,toggle.isChecked()`. This line will ensure that the Clock UI will be brought up only if the setting to skip, which is pulled from the toggle switch, is false. 
+Also, note the line: `createAlarmIntent.putExtra(AlarmClock.EXTRA_SKIP_UI,toggle.isChecked())`. This line will ensure that the Clock UI will be brought up only if the setting to skip, which is pulled from the toggle switch, is false. 
 
 # Step 3: OnClick Handlers
 
-You may have noticed that the buttons don't do anything right now. We will now go over the handlers for that will be calling the above function when the buttons are clicked.
+You may have noticed that the buttons don't do anything right now. We will now go over the handlers that will be calling the above function when the buttons are clicked.
 
 ## Set Alarm For A Preset Time Relative To Current Time
 The following code is an example function of a button handler. Replace `{{Hours}}` with the desired number of hours from the current time to set the alarm for that time. If you are doing less than an hour, use `Calendar.MINUTE` and specify the number of minutes.
