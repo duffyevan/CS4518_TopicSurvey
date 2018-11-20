@@ -1,0 +1,17 @@
+{
+  "environment": "web",
+  "source": "tutorial.md",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2018-11-20T08:53:54-05:00",
+  "id": "android_alarm_clock_tutorial",
+  "duration": 0,
+  "title": "Alarm Clock Tutorial",
+  "summary": "Android Alarm Clock Tutorial",
+  "theme": "",
+  "status": null,
+  "category": null,
+  "tags": [],
+  "url": "android_alarm_clock_tutorial"
+}

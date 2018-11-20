@@ -1,0 +1,135 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Alarm Clock Tutorial</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="Alarm Clock Tutorial"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Create The UI" duration="0">
+        <p>First, we need to whip up a simple UI for our app. You should already be familiar with this process from previous projects, but this UI has an element in it that is not in the WYSIWYG editor.</p>
+<p>This is what we will be going for:</p>
+<p><img alt="UI Screenshot" src="img/a2ee172b36edc1e2.png"></p>
+<p>To create the time setter, we need to add a bit of xml directly to the top of the <code>activity_main.xml</code> file:</p>
+<pre><code>    &lt;TimePicker
+        android:layout_width=&#34;wrap_content&#34;
+        android:layout_height=&#34;wrap_content&#34;
+        android:timePickerMode=&#34;spinner&#34; /&gt;
+</code></pre>
+<p>This will place the <code>TimePicker</code> and we can now work with it in the WYSIWYG eitor. After getting the <code>TimePicker</code> the way you want it, add the buttons and the switch.</p>
+<p>We will discuss what these buttons will do in future sections.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Setting Alarms With The Android API" duration="0">
+        <p>Setting alarms from the Android API is actually quite easy. All that is needed is to run an intents with a few parameters.</p>
+<p>First we need to get permission to set alarms from the Android API. Add the following line to your AndroidManifest.xml at the same level as (not under) the <code>application</code> tag:</p>
+<pre><code>&lt;uses-permission android:name=&#34;com.android.alarm.permission.SET_ALARM&#34; /&gt;
+</code></pre>
+<p>The intent needed is called <code>AlarmClock.ACTION_SET_ALARM</code>. Running this intent without parameters will bring up a system dialogue where the user can set an alarm, but we would like our app to set the alarm itself.</p>
+<p>To specify the time to set the alarm, we need to add extras to the intent as parameters.<br>Use the following function when setting the time:</p>
+<pre><code>    /**
+     * Set an alarm for a given time
+     * @param hour The hour for the alarm
+     * @param minute The minute for the alarm
+     */
+    private void setAlarm(int hour, int minute) {
+        Intent createAlarmIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
+        createAlarmIntent.putExtra(AlarmClock.EXTRA_HOUR, hour);
+        createAlarmIntent.putExtra(AlarmClock.EXTRA_MINUTES, minute);
+        createAlarmIntent.putExtra(AlarmClock.EXTRA_MESSAGE,  &#34;Demo Alarm &#34; + this.alarm_index++);
+
+        Switch toggle = findViewById(R.id.switch1);
+
+        createAlarmIntent.putExtra(AlarmClock.EXTRA_SKIP_UI, toggle.isChecked());
+
+        getApplicationContext().startActivity(createAlarmIntent);
+    }
+</code></pre>
+<p>This will set the alarm based on the parameters and set the message for the alarm to <code>Demo Alarm [n]</code> where [n] is the number of the alarm (this should be set by you previously).<br>Also, note the line: <code>createAlarmIntent.putExtra(AlarmClock.EXTRA_SKIP_UI,toggle.isChecked())</code>. This line will ensure that the Clock UI will be brought up only if the setting to skip, which is pulled from the toggle switch, is false.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="OnClick Handlers" duration="0">
+        <p>You may have noticed that the buttons don&#39;t do anything right now. We will now go over the handlers that will be calling the above function when the buttons are clicked.</p>
+<h2>Set Alarm For A Preset Time Relative To Current Time</h2>
+<p>The following code is an example function of a button handler. Replace <code>{{Hours}}</code> with the desired number of hours from the current time to set the alarm for that time. If you are doing less than an hour, use <code>Calendar.MINUTE</code> and specify the number of minutes.</p>
+<pre><code>    public void onClickExample(View v) {
+        Calendar time = Calendar.getInstance();
+        time.setTime(new Date()); // Set the time to now
+        time.add(Calendar.HOUR, {{Hours}});
+        this.setAlarm(time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE));
+    }
+
+</code></pre>
+<h2>Set Alarm For Custom Time</h2>
+<p>The following code will set an alarm for the time displayed on the <code>TimePicker</code>:</p>
+<pre><code>    public void onTPClick(View v) {
+        TimePicker alarmTP = findViewById(R.id.timePicker);
+        this.setAlarm(alarmTP.getHour(), alarmTP.getMinute());
+    }
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Summary" duration="0">
+        <p>In this tutorial we created a simple app to set alarms based on either preset durations or a custom time.</p>
+<p>Go <a href="https://github.com/duffyevan/CS4518_TopicSurvey" target="_blank">here</a> to see the code that we created as a demo.</p>
+<p>We made heavy use of <a href="https://developer.android.com/reference/android/provider/AlarmClock" target="_blank">this page</a> while creating this app. It contains a lot of information on Android Alarm Clocks.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>

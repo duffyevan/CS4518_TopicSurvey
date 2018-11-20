@@ -1,3 +1,10 @@
+---
+
+summary: Android Alarm Clock Tutorial
+id: android_alarm_clock_tutorial
+
+---
+
 # Alarm Clock Tutorial
 _By Evan Duffy and Ben Newmark_
 
@@ -5,7 +12,7 @@ In this tutorial, you will learn how to make a simple app to set alarms for one 
 
 ---
 
-# Step 1: Create The UI
+## Create The UI
 First, we need to whip up a simple UI for our app. You should already be familiar with this process from previous projects, but this UI has an element in it that is not in the WYSIWYG editor.
 
 This is what we will be going for:
@@ -26,7 +33,7 @@ We will discuss what these buttons will do in future sections.
 
 ---
 
-# Step 2: Setting Alarms With The Android API
+## Setting Alarms With The Android API
 
 Setting alarms from the Android API is actually quite easy. All that is needed is to run an intents with a few parameters. 
 
@@ -62,11 +69,11 @@ Use the following function when setting the time:
 This will set the alarm based on the parameters and set the message for the alarm to `Demo Alarm [n]` where [n] is the number of the alarm (this should be set by you previously).
 Also, note the line: `createAlarmIntent.putExtra(AlarmClock.EXTRA_SKIP_UI,toggle.isChecked())`. This line will ensure that the Clock UI will be brought up only if the setting to skip, which is pulled from the toggle switch, is false. 
 
-# Step 3: OnClick Handlers
+## OnClick Handlers
 
 You may have noticed that the buttons don't do anything right now. We will now go over the handlers that will be calling the above function when the buttons are clicked.
 
-## Set Alarm For A Preset Time Relative To Current Time
+### Set Alarm For A Preset Time Relative To Current Time
 The following code is an example function of a button handler. Replace `{{Hours}}` with the desired number of hours from the current time to set the alarm for that time. If you are doing less than an hour, use `Calendar.MINUTE` and specify the number of minutes.
 ```java
     public void onClickExample(View v) {
@@ -78,7 +85,7 @@ The following code is an example function of a button handler. Replace `{{Hours}
 
 ```
 
-## Set Alarm For Custom Time
+### Set Alarm For Custom Time
 The following code will set an alarm for the time displayed on the `TimePicker`:
 ```java
     public void onTPClick(View v) {
@@ -86,3 +93,11 @@ The following code will set an alarm for the time displayed on the `TimePicker`:
         this.setAlarm(alarmTP.getHour(), alarmTP.getMinute());
     }
 ```
+
+## Summary
+
+In this tutorial we created a simple app to set alarms based on either preset durations or a custom time.
+
+Go [here](https://github.com/duffyevan/CS4518_TopicSurvey) to see the code that we created as a demo.
+
+We made heavy use of [this page](https://developer.android.com/reference/android/provider/AlarmClock) while creating this app. It contains a lot of information on Android Alarm Clocks.
